@@ -4,6 +4,7 @@ const session = require("express-session");
 const store = new session.MemoryStore();
 
 const users = require("./routes/user");
+const recipes = require("./routes/recipe");
 
 const app = express();
 
@@ -31,5 +32,6 @@ app.use(
 );
 
 app.use("/auth", users);
+app.use("/recipe", recipes);
 
 module.exports = app;

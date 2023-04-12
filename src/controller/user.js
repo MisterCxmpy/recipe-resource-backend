@@ -2,6 +2,16 @@ const bcrypt = require("bcrypt");
 
 const User = require("../model/User");
 
+async function check(req, res) {
+  if (req.session.authenticated) {
+    return res.status(200).json(req.session);
+  } else {
+    return res
+      .status(400)
+      .json({ message: "You must be logged in to see this content!" });
+  }
+}
+
 async function register(req, res) {
   const data = req.body;
   const salt = await bcrypt.genSalt();
@@ -75,4 +85,4 @@ async function getUser(req, res) {
   }
 }
 
-module.exports = { register, login, logout, getUser, getAll };
+module.exports = { check, register, login, logout, getUser, getAll };
